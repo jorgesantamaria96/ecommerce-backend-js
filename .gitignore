@@ -1,0 +1,8 @@
+node_modules/
+
+.env
+.babelrc
+package-lock.json
+error.log
+ayuda.html
+anotaciones.md
