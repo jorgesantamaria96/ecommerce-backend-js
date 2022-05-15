@@ -1,25 +1,12 @@
-let productsDao
-let cartsDao
-let ordersDao
-let usersDao
-let chatsDao
+let productsDao;
+let cartsDao;
+let ordersDao;
+let usersDao;
+let chatsDao;
 
-let contenedor = 'mongodb'
+let contenedor = "mongodb";
 switch (contenedor) {
-  // case 'txt':
-  //     const ProductsDaoArchivo = require("./Products/ProductsDao")
-  //     const CarritosDaoArchivo = require("./Carts/CarritoDaoArchivo")
-
-  //     productosDao = new ProductosDaoArchivo()
-  //     carritosDao = new CarritosDaoArchivo()
-  //     break
-  // case 'firebase':
-  //     const ProductosDaoFirebase = require("./Products/ProductosDaoFirebase");
-  //     const CarritosDaoFirebase = require("./Carts/CarritosDaoFirebase")
-  //     productosDao = new ProductosDaoFirebase()
-  //     carritosDao = new CarritosDaoFirebase()
-  //     break
-  case 'mongodb':
+  case "mongodb":
     const { ProductsDaoMongoDB } = require("./Products/ProductsDaoMongoDB");
     const { CartsDaoMongoDB } = require("./Carts/CartsDaoMongoDB");
     const { OrdersDaoMongoDB } = require("./Orders/OrdersDaoMongoDB");
@@ -31,15 +18,9 @@ switch (contenedor) {
     ordersDao = new OrdersDaoMongoDB();
     usersDao = new UsersDaoMongoDB();
     chatsDao = new ChatsDaoMongoDB();
-    break
+    break;
   default:
-    break
+    break;
 }
 
-export {
-  productsDao,
-  cartsDao,
-  ordersDao,
-  usersDao,
-  chatsDao
-}
+export { productsDao, cartsDao, ordersDao, usersDao, chatsDao };

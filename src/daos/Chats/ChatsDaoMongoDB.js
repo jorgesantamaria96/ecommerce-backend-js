@@ -1,10 +1,10 @@
-import { ContainerMongoDB } from "../../containers/containerMongoDB";
-import { ChatsSchema } from "../../models/chatModel";
+const { ContainerMongoDB } = require("../../containers/containerMongoDB");
+const { ChatsSchema } = require("../../models/chatModel");
 
 class ChatsDaoMongoDB extends ContainerMongoDB {
   constructor() {
-    super('chats', ChatsSchema);
+    super("chats", ChatsSchema);
   }
 }
 
-export { ChatsDaoMongoDB };
+module.exports = { ChatsDaoMongoDB };

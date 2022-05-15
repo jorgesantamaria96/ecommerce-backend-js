@@ -1,13 +1,15 @@
-import { Schema } from 'mongoose';
+const { Schema } = require("mongoose");
 
-export const ChatsSchema = new Schema({
+const ChatsSchema = new Schema({
   timestamp: {
     type: String,
-    required: true
+    required: true,
   },
   messages: {
     type: Array,
     required: true,
-    default: []
-  }
-})
+    default: [],
+  },
+});
+
+module.exports = { ChatsSchema };

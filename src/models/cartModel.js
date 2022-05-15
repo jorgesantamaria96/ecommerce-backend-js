@@ -1,9 +1,9 @@
-import { Schema } from 'mongoose';
+const { Schema } = require("mongoose");
 
-export const CartsSchema = new Schema({
+const CartsSchema = new Schema({
   products: {
     type: Array,
-    ref: 'products',
+    ref: "products",
   },
   quantity: {
     type: Number,
@@ -18,5 +18,7 @@ export const CartsSchema = new Schema({
   timestamp: {
     type: String,
     required: true,
-  }
+  },
 });
+
+module.exports = { CartsSchema };

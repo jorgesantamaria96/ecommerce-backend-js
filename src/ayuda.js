@@ -1,4 +1,4 @@
-import { getDate } from "./utils";
+const { getDate } = require("./utils");
 
 const timestamp = getDate();
 

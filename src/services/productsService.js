@@ -1,9 +1,8 @@
-import { productsDao } from '../daos/index';
-// import { getDate } from '../utils';
+const { productsDao } = require("../daos/index");
 
 // Logs
-import log4js from '../logs/loggers';
-const loggerError = log4js.getLogger('error');
+const log4js = require("../logs/loggers");
+const loggerError = log4js.getLogger("error");
 
 const products = productsDao;
 
@@ -13,45 +12,48 @@ const getProductsService = async () => {
     return response;
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al obtener los productos - service');
+    throw Error("Error al obtener los productos - service");
   }
-}
+};
 
 const getProductByIdService = async (id) => {
   try {
     const response = await products.getById(id);
 
-    if (response ){
+    if (response) {
       return { status: "ok", product: response };
     } else {
       return { status: "non-existent" };
     }
-
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al obtener el producto por id - service');
+    throw Error("Error al obtener el producto por id - service");
   }
-}
+};
 
 const getProductsByCategoryService = async (category) => {
   try {
     const response = await products.getByCategory(category);
-    return (response ? { status: "ok", products: response } : { status: "non-existent" });
+    return response
+      ? { status: "ok", products: response }
+      : { status: "non-existent" };
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al obtener los productos por categoría - service');
+    throw Error("Error al obtener los productos por categoría - service");
   }
-}
+};
 
 const createProductService = async (product) => {
   try {
     const response = await products.save(product);
-    return (response ? { status: "ok", product: response } : { status: "non-existent" });
+    return response
+      ? { status: "ok", product: response }
+      : { status: "non-existent" };
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al crear el producto - service');
+    throw Error("Error al crear el producto - service");
   }
-}
+};
 
 const updateProductService = async (id, product) => {
   try {
@@ -64,9 +66,9 @@ const updateProductService = async (id, product) => {
     }
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al actualizar el producto - service');
+    throw Error("Error al actualizar el producto - service");
   }
-}
+};
 
 const deleteProductService = async (id) => {
   try {
@@ -74,21 +76,21 @@ const deleteProductService = async (id) => {
     if (response) {
       await products.deleteById(id);
       const allProducts = await products.getAll();
-      return { status: "ok" , products: allProducts };
+      return { status: "ok", products: allProducts };
     } else {
       return { status: "non-existent" };
     }
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al borrar el producto - service');
+    throw Error("Error al borrar el producto - service");
   }
-}
+};
 
-export {
+module.exports = {
   getProductsByCategoryService,
   getProductsService,
   getProductByIdService,
   createProductService,
   updateProductService,
-  deleteProductService
-}
+  deleteProductService,
+};

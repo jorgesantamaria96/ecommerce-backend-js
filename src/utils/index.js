@@ -30,4 +30,4 @@ const getDate = () => {
   return dateOK;
 };
 
-export { asPOJO, removeField, renameField, getDate };
+module.exports = { asPOJO, removeField, renameField, getDate };

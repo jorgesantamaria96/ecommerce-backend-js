@@ -1,4 +1,11 @@
-import twilio from "twilio";
-import { environment } from "./environment";
+const twilio = require("twilio");
+const { environment } = require("./environment");
 
-export const twilioClient = twilio(environment.TWILIO_ACCOUNT_SID, environment.TWILIO_AUTH_TOKEN);
+const twilioClient = twilio(
+  environment.TWILIO_ACCOUNT_SID,
+  environment.TWILIO_AUTH_TOKEN
+);
+
+module.exports = {
+  twilioClient,
+};

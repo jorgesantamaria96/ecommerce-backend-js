@@ -1,16 +1,16 @@
-import {
+const {
   getProductsService,
   getProductByIdService,
   getProductsByCategoryService,
   createProductService,
   updateProductService,
-  deleteProductService
-} from '../services/productsService';
+  deleteProductService,
+} = require("../services/productsService");
 
-import { getDate } from "../utils";
-import log4js from '../logs/loggers';
+const { getDate } = require("../utils");
+const log4js = require("../logs/loggers");
 
-const loggerError = log4js.getLogger('error');
+const loggerError = log4js.getLogger("error");
 
 const getProducts = async (req, res) => {
   try {
@@ -20,13 +20,13 @@ const getProducts = async (req, res) => {
     loggerError.error(error);
     throw Error("Error getting products - controller");
   }
-}
+};
 
 const getProductById = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await getProductByIdService(id);
-    if (response.status === 'ok') {
+    if (response.status === "ok") {
       res.status(200).send(response);
     } else {
       res.status(400).send(response);
@@ -35,13 +35,13 @@ const getProductById = async (req, res) => {
     loggerError.error(error);
     throw Error("Error getting product by id - controller");
   }
-}
+};
 
 const getProductsByCategory = async (req, res) => {
   try {
     const { category } = req.params;
     const response = await getProductsByCategoryService(category);
-    if (response.status === 'ok') {
+    if (response.status === "ok") {
       res.status(200).send(response);
     } else {
       res.status(400).send(response);
@@ -50,7 +50,7 @@ const getProductsByCategory = async (req, res) => {
     loggerError.error(error);
     throw Error("Error getting products by category - controller");
   }
-}
+};
 
 const postProduct = async (req, res) => {
   try {
@@ -62,10 +62,10 @@ const postProduct = async (req, res) => {
       description,
       stock,
       thumbnail,
-      timestamp: getDate()
-    }
+      timestamp: getDate(),
+    };
     const response = await createProductService(product);
-    if (response.status === 'ok') {
+    if (response.status === "ok") {
       res.status(201).send(response);
     } else {
       res.status(400).send(`bad request, ${response}`);
@@ -74,7 +74,7 @@ const postProduct = async (req, res) => {
     loggerError.error(error);
     throw Error("Error posting product - controller");
   }
-}
+};
 
 const updateProduct = async (req, res) => {
   try {
@@ -88,10 +88,10 @@ const updateProduct = async (req, res) => {
       category,
       description,
       stock,
-      thumbnail
-    }
+      thumbnail,
+    };
     const response = await updateProductService(id, product);
-    if (response.status === 'ok') {
+    if (response.status === "ok") {
       res.status(200).send(response);
     } else {
       res.status(400).send(response);
@@ -100,13 +100,13 @@ const updateProduct = async (req, res) => {
     loggerError.error(error);
     throw Error("Error updating product - controller");
   }
-}
+};
 
 const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await deleteProductService(id);
-    if (response.status === 'ok') {
+    if (response.status === "ok") {
       res.status(200).send(response);
     } else {
       res.status(400).send(response);
@@ -115,13 +115,13 @@ const deleteProduct = async (req, res) => {
     loggerError.error(error);
     throw Error("Error deleting product - controller");
   }
-}
+};
 
-export {
+module.exports = {
   getProducts,
   getProductById,
   getProductsByCategory,
   postProduct,
   updateProduct,
-  deleteProduct
-}
+  deleteProduct,
+};

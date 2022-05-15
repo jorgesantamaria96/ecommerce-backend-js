@@ -1,39 +1,29 @@
-import { ContainerMongoDB } from "../../containers/containerMongoDB";
-import { UserSchema } from '../../models/userModel';
-import log4js from "../../logs/loggers";
+const { ContainerMongoDB } = require("../../containers/containerMongoDB");
+const { UserSchema } = require("../../models/userModel");
+const log4js = require("../../logs/loggers");
 
-const loggerError = log4js.getLogger('error');
+const loggerError = log4js.getLogger("error");
 
-export class UsersDaoMongoDB extends ContainerMongoDB {
+class UsersDaoMongoDB extends ContainerMongoDB {
   constructor() {
-    super('users', UserSchema);
+    super("users", UserSchema);
   }
 
   async getByUser(username) {
     try {
       let docs;
       docs = await super.getAll();
-      let response = docs.filter(doc => {
+      let response = docs.filter((doc) => {
         if (doc.email === username) {
           return doc;
         }
       });
-      return(response[0]);
+      return response[0];
     } catch (error) {
-      loggerError.error('Error getting element: ' + error);
+      loggerError.error("Error getting element: " + error);
       throw Error("Error getting element by username in DAO: " + username);
     }
   }
-
-
-  // async LogoutUserRes(resLocalUser) {
-  //   try {
-  //       const LogUs = await super.update({ _id: resLocalUser.id }, { $set: { token: [] } })
-  //       return LogUs
-  //   } catch (error) {
-  //       logger.error(error)
-  //       res.status(500).json(error)
-  //   }
-  // }
 }
 
+module.exports = { UsersDaoMongoDB };

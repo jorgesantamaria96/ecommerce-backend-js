@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import { middleware } from '../middlewares/index';
-import {
+const { Router } = require("express");
+const { middleware } = require("../middlewares/index");
+const {
   getOrders,
   getAllOrders,
   postOrder,
   updateOrder,
-  deleteOrder
-} from '../controllers/ordersController';
+  deleteOrder,
+} = require("../controllers/ordersController");
 
 const router = new Router();
 
@@ -16,4 +16,4 @@ router.post("/:idCart", middleware.isRegister, postOrder);
 router.put("/:idOrder", middleware.isAdmin, updateOrder);
 router.delete("/:idOrder", middleware.isAdmin, deleteOrder);
 
-export default router;
+module.exports = router;

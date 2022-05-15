@@ -1,16 +1,16 @@
-import { 
+const {
   createCartService,
   addProductToCartService,
   deleteCartService,
   deleteProductFromCartService,
   getProductsFromCartService,
-  getCartsService
-} from "../services/cartsService";
+  getCartsService,
+} = require("../services/cartsService");
 
 // Logs
-import log4js from "../logs/loggers";
-const loggerConsole = log4js.getLogger('console');
-const loggerError = log4js.getLogger('error');
+const log4js = require("../logs/loggers");
+const loggerConsole = log4js.getLogger("console");
+const loggerError = log4js.getLogger("error");
 
 // CREAMOS NUEVO CARRITO
 const createCart = async (req, res) => {
@@ -20,7 +20,7 @@ const createCart = async (req, res) => {
     res.send(idCart);
   } catch (err) {
     loggerError.error(err);
-    throw Error('Error al crear el carrito desde el controlador');
+    throw Error("Error al crear el carrito desde el controlador");
   }
 };
 
@@ -32,9 +32,11 @@ const addProductToCarrito = async (req, res) => {
     if (response.status === "ok") {
       res.status(200);
       res.send(response.cart);
-    } else{
+    } else {
       res.status(400);
-      res.send({ error: `Producto con ID ${idProducto} o carrito con ID ${idCarrito} no existe` });
+      res.send({
+        error: `Producto con ID ${idProducto} o carrito con ID ${idCarrito} no existe`,
+      });
     }
   } catch (error) {
     loggerError.error(error);
@@ -112,11 +114,11 @@ const getCarts = async (req, res) => {
   }
 };
 
-export {
+module.exports = {
   createCart,
   addProductToCarrito,
   deleteCart,
   deleteProductFromCart,
   getProductsFromCart,
-  getCarts
-}
+  getCarts,
+};

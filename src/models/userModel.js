@@ -1,53 +1,54 @@
-import { Schema } from 'mongoose';
+const { Schema } = require("mongoose");
 
-export const UserSchema = new Schema({
+const UserSchema = new Schema({
   cart: {
     type: Schema.Types.ObjectId,
-    ref: 'carts'
+    ref: "carts",
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   lastname: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   age: {
     type: Number,
-    trim: true
+    trim: true,
   },
   phone: {
     type: Number,
     trim: true,
-    required: true
+    required: true,
   },
   avatar: {
     type: String,
     default: "batman.png",
-    required: false
+    required: false,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   isAdmin: {
     type: Boolean,
     default: false,
-    required: true
+    required: true,
   },
   chat: {
     type: Schema.Types.ObjectId,
-    ref: 'chats'
-  }
+    ref: "chats",
+  },
 });
 
+module.exports = { UserSchema };

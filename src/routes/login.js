@@ -1,19 +1,16 @@
-import { Router } from 'express';
-import { passportConfig } from '../middlewares/passport';
+const { Router } = require("express");
+const { passportConfig } = require("../middlewares/passport");
 const { getUser } = require("../controllers/loginController");
 
 const router = new Router();
 
-//GET LOGIN
-
 router.get("/", getUser);
+router.post(
+  "/",
+  passportConfig.authenticate("local-login", {
+    successRedirect: "/products.html",
+    failureRedirect: "/loginError.html",
+  })
+);
 
-//POST LOGIN
-
-router.post("/", passportConfig.authenticate("local-login",{
-  successRedirect:"/products.html",
-  failureRedirect:"/loginError.html"
-}))
-
-export default router;
-
+module.exports = router;

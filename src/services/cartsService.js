@@ -1,10 +1,10 @@
-import { cartsDao, productsDao } from '../daos/index';
-import { getDate } from '../utils';
+const { cartsDao, productsDao } = require("../daos/index");
+const { getDate } = require("../utils");
 
 // Logs
-import log4js from '../logs/loggers';
-const loggerConsole = log4js.getLogger('console');
-const loggerError = log4js.getLogger('error');
+const log4js = require("../logs/loggers");
+const loggerConsole = log4js.getLogger("console");
+const loggerError = log4js.getLogger("error");
 
 let carts = cartsDao;
 let products = productsDao;
@@ -17,12 +17,12 @@ const createCartService = async () => {
       products: [],
     };
     let cartCreated = await carts.save(cart);
-    return { id: cartCreated.id}
+    return { id: cartCreated.id };
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al crear el carrito');
+    throw Error("Error al crear el carrito");
   }
-}
+};
 
 // AÑADIR PRODUCTO A CARRITO
 const addProductToCartService = async (idProduct, idCart) => {
@@ -34,13 +34,16 @@ const addProductToCartService = async (idProduct, idCart) => {
       await carts.update(cart);
       return { status: "ok", cart: cart };
     } else {
-      return { status: "error", message: "El carrito o el producto no existen" };
+      return {
+        status: "error",
+        message: "El carrito o el producto no existen",
+      };
     }
   } catch (error) {
     loggerError.error(error);
-    throw Error('Error al añadir el producto al carrito');
+    throw Error("Error al añadir el producto al carrito");
   }
-}
+};
 
 // BORRAR CARRITO SEGÚN ID
 const deleteCartService = async (id) => {
@@ -49,8 +52,7 @@ const deleteCartService = async (id) => {
     if (Object.keys(cart).length != 0) {
       await carts.deleteById(id);
       return { status: "ok" };
-    }
-    else {
+    } else {
       return { status: "non-existent" };
     }
   } catch (error) {
@@ -65,17 +67,17 @@ const deleteProductFromCartService = async (idProduct, idCart) => {
     let cart = await carts.getById(idCart);
     if (Object.keys(cart).length != 0) {
       let productsFromCart = cart.products;
-      let indexProduct = productsFromCart.findIndex((aux) => aux.id == idProduct);
+      let indexProduct = productsFromCart.findIndex(
+        (aux) => aux.id == idProduct
+      );
       if (indexProduct >= 0) {
         cart.products.splice(indexProduct, 1);
         carts.update(cart);
         return { status: "ok", cart: cart };
-      }
-      else {
+      } else {
         return { status: "producto no existe" };
       }
-    }
-    else {
+    } else {
       return { status: "carrito no existe" };
     }
   } catch (error) {
@@ -91,8 +93,7 @@ const getProductsFromCartService = async (id) => {
     if (cart) {
       const productsFromCart = cart.products;
       return { estado: "ok", products: productsFromCart };
-    }
-    else {
+    } else {
       return { estado: "carrito no existe" };
     }
   } catch (error) {
@@ -112,11 +113,11 @@ const getCartsService = async () => {
   }
 };
 
-export {
+module.exports = {
   createCartService,
   addProductToCartService,
   deleteCartService,
   deleteProductFromCartService,
   getProductsFromCartService,
   getCartsService,
-}
+};

@@ -1,12 +1,16 @@
-import nodemailer from 'nodemailer';
-import { environment } from './environment';
+const nodemailer = require("nodemailer");
+const { environment } = require("./environment");
 
-export const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   host: environment.NODEMAILER_HOST,
   port: environment.NODEMAILER_PORT,
   secure: true,
   auth: {
-      user: environment.NODEMAILER_USER,
-      pass: environment.NODEMAILER_PASS
-  }
+    user: environment.NODEMAILER_USER,
+    pass: environment.NODEMAILER_PASS,
+  },
 });
+
+module.exports = {
+  transporter,
+};

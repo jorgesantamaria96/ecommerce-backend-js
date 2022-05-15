@@ -1,27 +1,27 @@
-import { Schema } from 'mongoose';
+const { Schema } = require("mongoose");
 
-export const OrdersSchema = new Schema({
+const OrdersSchema = new Schema({
   timestamp: {
     type: String,
-    required: true
+    required: true,
   },
-  products:
-  {
+  products: {
     type: Array,
-    required: true
+    required: true,
   },
-  status:
-  {
+  status: {
     type: String,
     required: true,
-    default: 'generated'
+    default: "generated",
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   user: {
     type: Schema.ObjectId,
     ref: "users",
   },
-})
+});
+
+module.exports = { OrdersSchema };

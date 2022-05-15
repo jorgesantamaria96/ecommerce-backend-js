@@ -1,9 +1,9 @@
-import { chatsDao, usersDao } from '../daos';
-import { getDate } from '../utils';
+const { chatsDao, usersDao } = require("../daos");
+const { getDate } = require("../utils");
 
 // Logs
-import log4js from '../logs/loggers';
-const loggerError = log4js.getLogger('error');
+const log4js = require("../logs/loggers");
+const loggerError = log4js.getLogger("error");
 
 let chats = chatsDao;
 let users = usersDao;
@@ -15,7 +15,7 @@ const getPublicChatService = async (req, res) => {
     const mainChat = await chats.getById(idMainChat);
     return mainChat;
   } catch (error) {
-    loggerError.error('Error getting element: ' + error);
+    loggerError.error("Error getting element: " + error);
     throw Error("Error getting chat by id: " + idMainChat);
   }
 };
@@ -24,7 +24,7 @@ const postPublicMessageService = async (msg, type, email) => {
   try {
     const mainChat = await chats.getById(idMainChat);
     console.log(mainChat);
-    
+
     const newMessage = {
       timestamp: getDate(),
       author: email,
@@ -35,7 +35,6 @@ const postPublicMessageService = async (msg, type, email) => {
     mainChat.messages.push(newMessage);
     await chats.update(mainChat);
     return mainChat.messages;
-    
   } catch (error) {
     loggerError.error(error);
     throw Error("Error post public message - service");
@@ -46,8 +45,8 @@ const getChatByEmailService = async (email) => {
   try {
     const chat = await chats.getById(idMainChat);
     const msgArray = chat.messages;
-    const mainMsg = msgArray.filter( (element) => {
-      if ( element.author === email ) {
+    const mainMsg = msgArray.filter((element) => {
+      if (element.author === email) {
         return element;
       }
     });
@@ -58,7 +57,11 @@ const getChatByEmailService = async (email) => {
   }
 };
 
-const getPrivateChatByUserService = async (isAdmin, idChat="", email="") => {
+const getPrivateChatByUserService = async (
+  isAdmin,
+  idChat = "",
+  email = ""
+) => {
   try {
     let chat = "";
     if (isAdmin) {
@@ -75,7 +78,13 @@ const getPrivateChatByUserService = async (isAdmin, idChat="", email="") => {
   }
 };
 
-const postPrivateMessageService = async (msg, isAdmin, emailUser="", email, idChat="") => {
+const postPrivateMessageService = async (
+  msg,
+  isAdmin,
+  emailUser = "",
+  email,
+  idChat = ""
+) => {
   try {
     let chat = "";
     let type = "";
@@ -99,18 +108,16 @@ const postPrivateMessageService = async (msg, isAdmin, emailUser="", email, idCh
     chatUser.messages.push(newMessage);
     await chats.update(chatUser);
     return chatUser;
-
   } catch (error) {
     loggerError.error(error);
     throw Error("Error post private message - service");
   }
-}
+};
 
-export {
+module.exports = {
   getPublicChatService,
   postPublicMessageService,
   getChatByEmailService,
   getPrivateChatByUserService,
   postPrivateMessageService,
-}
-
+};

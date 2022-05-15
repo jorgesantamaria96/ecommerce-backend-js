@@ -1,13 +1,13 @@
-import { Router } from 'express';
-import { middleware } from '../middlewares/index';
+const { Router } = require("express");
+const { middleware } = require("../middlewares/index");
 
-import {
+const {
   getPublicChat,
   postPublicMessage,
   getChatByEmail,
   getPrivateChatByUser,
-  postPrivateMessage
-} from "../controllers/chatController";
+  postPrivateMessage,
+} = require("../controllers/chatController");
 
 const router = new Router();
 
@@ -17,4 +17,4 @@ router.get("/:email", middleware.isAdmin, getChatByEmail);
 router.get("/private", middleware.isRegister, getPrivateChatByUser);
 router.post("/private", middleware.isRegister, postPrivateMessage);
 
-export default router;
+module.exports = router;
