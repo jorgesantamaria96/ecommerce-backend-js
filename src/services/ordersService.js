@@ -46,7 +46,7 @@ const createOrderService = async (idUser, idCart) => {
       const order = await orders.save(newOrder);
 
       const mailOptions = {
-        from: "ecommerce.animetaru@gmail.com",
+        from: "ecommerce.Ecommerce Coderhouse@gmail.com",
         to: user.email,
         subject: "Nuevo pedido",
         html:

@@ -77,7 +77,7 @@ passport.use(
       <h1 style='text-align: center'>Hola ${newUser.name} ${newUser.lastname}</h1>
       <h3 style='text-align: center'> Bienvenido a Ecommerce Coderhouse - Jorge Santamaria </h3>
       <div>
-        <img src=${newUser.avatar} alt='animetaru' style='width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;'>
+        <img src=${newUser.avatar} alt='Ecommerce Coderhouse' style='width: 100px; height: 100px; display: block; margin-left: auto; margin-right: auto;'>
       </div>
       <div>
         <div style='display: flex; justify-content: center'>
@@ -142,4 +142,6 @@ passport.deserializeUser(async (id, done) => {
   done(null, user);
 });
 
-module.exports = { passport: passportConfig };
+let passportConfig = passport;
+
+module.exports = { passportConfig };

@@ -7,4 +7,4 @@ const ADVANCED_OPTIONS = {
   useUnifiedTopology: true,
 };
 
-export { ADVANCED_OPTIONS, MONGO_URI };
+module.exports = { ADVANCED_OPTIONS, MONGO_URI };

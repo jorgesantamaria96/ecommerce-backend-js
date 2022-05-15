@@ -23,4 +23,4 @@ switch (contenedor) {
     break;
 }
 
-export { productsDao, cartsDao, ordersDao, usersDao, chatsDao };
+module.exports = { productsDao, cartsDao, ordersDao, usersDao, chatsDao };
